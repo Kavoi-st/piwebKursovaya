@@ -1,0 +1,124 @@
+---
+alwaysApply: true
+Project Goal
+Develop a fully functional client-server web application for an online service that allows users to publish car sale listings and discuss them.
+The architecture must follow Model-View-Controller (MVC) or Model-View-Presenter (MVP) and use CommonJS or ES Modules modular concepts.
+The application should include:
+
+user registration, authentication, and role-based access (user, moderator, admin);
+
+creation and moderation of car listings;
+
+adding comments, messages, and reports;
+
+image uploads;
+
+secure data handling and API operations.
+
+Architecture
+
+Backend: Node.js (v22+) with Express.js and Sequelize ORM (MySQL)
+
+Frontend: HTML5, CSS3, DHTML, JavaScript (Vanilla JS or a modern library)
+
+Database: MySQL 8.0 (schema defined in car_marketplace.sql)
+
+API Format: RESTful JSON
+
+Modules: use ESModules (import/export) or CommonJS (require/module.exports)
+
+Coding Guidelines
+
+Follow the MVC structure:
+backend/
+├── models/ — Sequelize models
+├── controllers/ — business logic
+├── routes/ — REST API endpoints
+├── middleware/ — authentication, validation, logging
+├── config/ — database and environment configuration
+├── utils/ — helper functions
+└── server.js
+
+frontend/
+├── html, css, js files
+└── images/
+
+Use modern ES6+ syntax (async/await, arrow functions, const/let, destructuring).
+
+Security:
+
+Use bcrypt for password hashing.
+
+Use JWT for authentication and session control.
+
+Implement role-based access control (user, moderator, admin).
+
+Protect against SQL injection and XSS.
+
+Use helmet and cors for HTTP security headers.
+
+Code clarity:
+
+English identifiers for variables, functions, and classes.
+
+Russian-language comments and user interface texts.
+
+Prefer modules under 100 lines when possible.
+
+Use JSDoc comments for functions and models.
+
+Formatting:
+
+Two-space indentation.
+
+Use Prettier or ESLint (Airbnb standard).
+
+Functional Requirements
+Implement at least 10 business operations including:
+
+User registration and login.
+
+Create, edit, delete car listings.
+
+Upload and manage car images.
+
+Moderator approval and rejection of listings.
+
+Add comments and replies.
+
+Add or remove listings from favorites.
+
+Send and receive private messages.
+
+Submit user reports on listings or comments.
+
+View moderation history.
+
+User notifications.
+
+Technical Setup
+
+Start backend: npm run dev (using nodemon)
+
+Database connection via .env file
+
+API testing: Postman or Thunder Client
+
+Frontend: unified visual theme with one CSS file
+
+Supported browsers: Chrome, Firefox, Opera, Yandex
+
+OS requirement: Windows 10 or higher
+
+Information Security
+
+Passwords stored as bcrypt hashes.
+
+JWT tokens with expiration and secret key.
+
+Use HTTPS for deployment.
+
+Implement regular database backup and restore scripts.
+
+Test for SQL injection and XSS vulnerabilities.
+---

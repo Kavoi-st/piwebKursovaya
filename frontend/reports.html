@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Жалобы - Car Marketplace</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚗</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html" style="text-decoration: none; color: inherit;">
+                    <h1>🚗 Car Marketplace</h1>
+                </a>
+            </div>
+            <nav class="navbar">
+                <button id="themeToggle" class="theme-toggle" aria-label="Переключить тему" title="Переключить тему"></button>
+                <a href="#" id="loginLink" class="nav-link">Вход</a>
+                <a href="register.html" id="registerLink" class="nav-link">Регистрация</a>
+                <div id="userMenu" class="user-menu" style="display: none;">
+                    <span id="userName"></span>
+                    <div class="dropdown">
+                        <a href="profile.html">Профиль</a>
+                        <a href="moderation.html" style="display: none;">Модерация</a>
+                        <a href="reports.html" style="display: none;">Жалобы</a>
+                        <a href="#" id="myListingsLink">Мои объявления</a>
+                        <a href="#" id="favoritesLink">Избранное</a>
+                        <a href="#" id="messagesLink">Сообщения</a>
+                        <a href="#" id="logoutLink">Выход</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="section-header">
+                <h2>⚠️ Жалобы на объявления</h2>
+                <button id="refreshBtn" class="btn btn-secondary">Обновить</button>
+            </div>
+
+            <!-- Фильтры -->
+            <div class="filters" style="margin-bottom: 2rem;">
+                <select id="statusFilter" class="filter-select">
+                    <option value="">Все статусы</option>
+                    <option value="open">Открытые</option>
+                    <option value="in_progress">В работе</option>
+                    <option value="resolved">Принятые</option>
+                    <option value="dismissed">Отклоненные</option>
+                </select>
+                <select id="sortBy" class="filter-select">
+                    <option value="createdAt">По дате создания</option>
+                    <option value="handledAt">По дате обработки</option>
+                </select>
+                <select id="sortOrder" class="filter-select">
+                    <option value="DESC">По убыванию</option>
+                    <option value="ASC">По возрастанию</option>
+                </select>
+            </div>
+
+            <!-- Список жалоб -->
+            <div id="reportsContainer" class="reports-list">
+                <div class="loading">Загрузка жалоб...</div>
+            </div>
+
+            <!-- Пагинация -->
+            <div id="pagination" class="pagination" style="display: none;">
+                <button id="prevPage" class="btn btn-outline">Назад</button>
+                <span id="pageInfo" class="page-info"></span>
+                <button id="nextPage" class="btn btn-outline">Вперед</button>
+            </div>
+
+            <!-- Пустое состояние -->
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <div class="empty-state-icon">✅</div>
+                <h3>Нет жалоб</h3>
+                <p>Все жалобы обработаны</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Модальное окно для просмотра жалобы -->
+    <div id="reportDetailModal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h2>Детали жалобы</h2>
+                <button class="modal-close" onclick="closeReportDetailModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="reportDetailContent">
+                <!-- Содержимое будет загружено динамически -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2025 Car Marketplace. Все права защищены.</p>
+            <div class="footer-links">
+                <a href="about.html">О нас</a>
+                <a href="contacts.html">Контакты</a>
+                <a href="rules.html">Правила</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/reports.js"></script>
+    <script src="js/theme.js"></script>
+</body>
+</html>
+

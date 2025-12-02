@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Объявление - Car Marketplace</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚗</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js@10.2.0/public/assets/styles/choices.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html" style="text-decoration: none; color: inherit;">
+                    <h1>🚗 Car Marketplace</h1>
+                </a>
+            </div>
+            <nav class="navbar">
+                <button id="themeToggle" class="theme-toggle" aria-label="Переключить тему" title="Переключить тему"></button>
+                <a href="#" id="loginLink" class="nav-link">Вход</a>
+                <a href="register.html" id="registerLink" class="nav-link">Регистрация</a>
+                <div id="userMenu" class="user-menu" style="display: none;">
+                    <span id="userName"></span>
+                    <div class="dropdown">
+                        <a href="profile.html">Профиль</a>
+                        <a href="moderation.html" style="display: none;">Модерация</a>
+                        <a href="reports.html" style="display: none;">Жалобы</a>
+                        <a href="#" id="myListingsLink">Мои объявления</a>
+                        <a href="#" id="favoritesLink">Избранное</a>
+                        <a href="#" id="messagesLink">Сообщения</a>
+                        <a href="#" id="logoutLink">Выход</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <a href="index.html" class="back-link">← Вернуться к списку</a>
+
+            <!-- Загрузка -->
+            <div id="loading" class="loading">Загрузка объявления...</div>
+
+            <!-- Основная информация об объявлении -->
+            <section id="listingSection" class="listing-detail" style="display: none;">
+                <!-- Изображения -->
+                <div class="listing-images-section">
+                    <div class="main-image-container">
+                        <img id="mainImage" src="" alt="Главное фото" class="main-image">
+                        <button id="prevImageBtn" class="image-nav-btn prev" style="display: none;">‹</button>
+                        <button id="nextImageBtn" class="image-nav-btn next" style="display: none;">›</button>
+                    </div>
+                    <div id="thumbnailContainer" class="thumbnails"></div>
+                </div>
+
+                <!-- Информация об объявлении -->
+                <div class="listing-info-section">
+                    <div class="listing-header">
+                        <h1 id="listingTitle" class="listing-title-detail"></h1>
+                        <div class="listing-actions">
+                            <button id="favoriteBtn" class="btn btn-outline" style="display: none;">
+                                <span id="favoriteIcon">♡</span> В избранное
+                            </button>
+                            <button id="reportBtn" class="btn btn-outline" style="display: none;">
+                                Пожаловаться
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="listing-price-detail" id="listingPrice"></div>
+
+                    <div class="listing-stats">
+                        <span class="stat-item">👁 Просмотров: <span id="listingViews"></span></span>
+                        <span class="stat-item">📅 Опубликовано: <span id="listingDate"></span></span>
+                    </div>
+
+                    <!-- Информация об автомобиле -->
+                    <div class="car-details">
+                        <h2>Характеристики автомобиля</h2>
+                        <div class="details-grid">
+                            <div class="detail-item">
+                                <span class="detail-label">Марка:</span>
+                                <span id="carMake" class="detail-value"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Модель:</span>
+                                <span id="carModel" class="detail-value"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Год:</span>
+                                <span id="carYear" class="detail-value"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Пробег:</span>
+                                <span id="carMileage" class="detail-value"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Тип кузова:</span>
+                                <span id="carBodyType" class="detail-value"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Двигатель:</span>
+                                <span id="carEngineType" class="detail-value"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Коробка передач:</span>
+                                <span id="carTransmission" class="detail-value"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Цвет:</span>
+                                <span id="carColor" class="detail-value"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">VIN:</span>
+                                <span id="carVin" class="detail-value"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Описание -->
+                    <div class="listing-description">
+                        <h2>Описание</h2>
+                        <p id="listingDescription"></p>
+                    </div>
+
+                    <!-- Местоположение -->
+                    <div class="listing-location">
+                        <h2>Местоположение</h2>
+                        <p id="listingLocation"></p>
+                    </div>
+
+                    <!-- Контакты продавца -->
+                    <div class="seller-info">
+                        <h2>Продавец</h2>
+                        <div class="seller-card">
+                            <div class="seller-avatar">
+                                <img id="sellerAvatar" src="" alt="Аватар" class="avatar-img">
+                            </div>
+                            <div class="seller-details">
+                                <div class="seller-name" id="sellerName"></div>
+                                <div class="seller-registration" id="sellerRegistration"></div>
+                            </div>
+                        </div>
+                        
+                        <button id="contactSellerBtn" class="btn btn-primary btn-block" style="display: none;">
+                            Написать продавцу
+                        </button>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Комментарии -->
+            <section id="commentsSection" class="comments-section" style="display: none;">
+                <h2>Комментарии</h2>
+                <div id="commentsContainer" class="comments-container">
+                    <!-- Комментарии будут загружаться здесь -->
+                </div>
+                
+                <!-- Форма добавления комментария -->
+                <div id="commentFormContainer" class="comment-form-container" style="display: none;">
+                    <h3>Добавить комментарий</h3>
+                    <form id="commentForm" class="comment-form">
+                        <textarea id="commentContent" class="comment-input" placeholder="Ваш комментарий..." required></textarea>
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Модальное окно для просмотра изображения на весь экран -->
+    <div id="imageViewerModal" class="image-viewer-modal" style="display: none;">
+        <div class="image-viewer-backdrop" onclick="closeImageViewer()"></div>
+        <div class="image-viewer-container">
+            <button class="image-viewer-close" onclick="closeImageViewer()">&times;</button>
+            <button class="image-viewer-nav image-viewer-prev" onclick="navigateImageViewer(-1)">‹</button>
+            <img id="viewerImage" src="" alt="Просмотр изображения" class="image-viewer-img">
+            <button class="image-viewer-nav image-viewer-next" onclick="navigateImageViewer(1)">›</button>
+            <div class="image-viewer-info">
+                <span id="viewerImageCounter"></span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2025 Car Marketplace. Все права защищены.</p>
+            <div class="footer-links">
+                <a href="about.html">О нас</a>
+                <a href="contacts.html">Контакты</a>
+                <a href="rules.html">Правила</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модальное окно для создания объявления -->
+    <div id="createListingModal" class="modal" style="display: none;">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2>Добавить объявление</h2>
+                <button class="modal-close" onclick="closeCreateListingModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="createListingForm" class="profile-form">
+                    <div id="createListingErrorMessage" class="error-message" style="display: none;"></div>
+                    <div id="createListingSuccessMessage" class="success-message" style="display: none;"></div>
+
+                    <h3 style="margin-bottom: 1rem; color: #2c3e50;">Информация об автомобиле</h3>
+                    
+                    <div class="form-group">
+                        <label for="createVin">VIN номер</label>
+                        <div style="display: flex; gap: 0.5rem; align-items: flex-end;">
+                            <div style="flex: 1;">
+                                <input type="text" id="createVin" name="vin" class="form-input" placeholder="VIN номер автомобиля" maxlength="17" style="text-transform: uppercase;">
+                            </div>
+                            <button type="button" id="fillByVinBtn" class="btn btn-outline" style="white-space: nowrap; padding: 0.75rem 1rem;">
+                                Заполнить по VIN
+                            </button>
+                        </div>
+                        <small class="form-hint" style="display: block; margin-top: 0.5rem; color: var(--text-secondary, #546e7a);">
+                            Введите VIN номер и нажмите кнопку для автоматического заполнения данных
+                        </small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="createMake">Марка автомобиля *</label>
+                        <select id="createMake" name="make" class="form-input choices-select" required>
+                            <option value="">Выберите марку</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="createModel">Модель *</label>
+                        <select id="createModel" name="model" class="form-input choices-select" required disabled>
+                            <option value="">Сначала выберите марку</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="createYear">Год выпуска *</label>
+                        <select id="createYear" name="year" class="form-input choices-select" required>
+                            <option value="">Выберите год</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="createMileage">Пробег (км)</label>
+                        <input type="number" id="createMileage" name="mileage" class="form-input" min="0" placeholder="50000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="createBodyType">Тип кузова</label>
+                        <select id="createBodyType" name="bodyType" class="form-input">
+                            <option value="">Выберите тип кузова</option>
+                            <option value="Sedan">Седан</option>
+                            <option value="Hatchback">Хэтчбек</option>
+                            <option value="SUV">Внедорожник</option>
+                            <option value="Coupe">Купе</option>
+                            <option value="Wagon">Универсал</option>
+                            <option value="Convertible">Кабриолет</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="createEngineType">Тип двигателя</label>
+                        <select id="createEngineType" name="engineType" class="form-input">
+                            <option value="">Выберите тип двигателя</option>
+                            <option value="Gasoline">Бензин</option>
+                            <option value="Diesel">Дизель</option>
+                            <option value="Hybrid">Гибрид</option>
+                            <option value="Electric">Электрический</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="createTransmission">Коробка передач</label>
+                        <select id="createTransmission" name="transmission" class="form-input">
+                            <option value="">Выберите КПП</option>
+                            <option value="Manual">Механическая</option>
+                            <option value="Automatic">Автоматическая</option>
+                            <option value="CVT">Вариатор</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="createColor">Цвет</label>
+                        <select id="createColor" name="color" class="form-input choices-select">
+                            <option value="">Выберите цвет</option>
+                        </select>
+                    </div>
+
+                    <h3 style="margin: 2rem 0 1rem 0; color: #2c3e50;">Информация об объявлении</h3>
+
+                    <div class="form-group">
+                        <label for="createTitle">Заголовок объявления *</label>
+                        <input type="text" id="createTitle" name="title" class="form-input" required placeholder="Например: Toyota Camry 2020, отличное состояние">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="createPrice">Цена *</label>
+                        <input type="number" id="createPrice" name="price" class="form-input" required min="0" step="0.01" placeholder="15000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="createCurrency">Валюта</label>
+                        <select id="createCurrency" name="currency" class="form-input">
+                            <option value="EUR">EUR (Евро)</option>
+                            <option value="USD">USD (Доллар)</option>
+                            <option value="UAH">UAH (Гривна)</option>
+                            <option value="RUB">RUB (Рубль)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="createDescription">Описание</label>
+                        <textarea id="createDescription" name="description" class="form-input" rows="4" placeholder="Подробное описание автомобиля..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="createRegion">Область</label>
+                        <select id="createRegion" name="region" class="form-input choices-select">
+                            <option value="">Выберите область</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="createCity">Город</label>
+                        <select id="createCity" name="city" class="form-input choices-select" disabled>
+                            <option value="">Сначала выберите область</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 1.5rem;">
+                        <button type="submit" class="btn btn-primary btn-block">Создать объявление</button>
+                        <button type="button" class="btn btn-outline btn-block" onclick="closeCreateListingModal()" style="margin-top: 0.5rem;">Отмена</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для жалобы -->
+    <div id="reportModal" class="modal" style="display: none;">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2>Пожаловаться на объявление</h2>
+                <button class="modal-close" onclick="closeReportModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="reportForm" class="profile-form">
+                    <div id="reportErrorMessage" class="error-message" style="display: none;"></div>
+                    <div id="reportSuccessMessage" class="success-message" style="display: none;"></div>
+
+                    <p style="margin-bottom: 1.5rem; color: #546e7a;">
+                        Выберите причину жалобы или укажите свою:
+                    </p>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="reason" value="Некорректная информация">
+                            <span>Некорректная информация</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="reason" value="Подозрительное объявление">
+                            <span>Подозрительное объявление</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="reason" value="Мошенничество">
+                            <span>Мошенничество</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="reason" value="Запрещенный контент">
+                            <span>Запрещенный контент</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="reason" value="Дубликат объявления">
+                            <span>Дубликат объявления</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="reason" value="Другая причина" id="otherReasonCheckbox">
+                            <span>Другая причина</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group" id="otherReasonGroup" style="display: none;">
+                        <label for="otherReason">Укажите свою причину *</label>
+                        <textarea id="otherReason" name="otherReason" class="form-input" rows="3" 
+                                  placeholder="Опишите причину жалобы..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reportDetails">Дополнительные детали (необязательно)</label>
+                        <textarea id="reportDetails" name="details" class="form-input" rows="4" 
+                                  placeholder="Дополнительная информация, которая поможет нам рассмотреть жалобу..."></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" onclick="closeReportModal()">Отмена</button>
+                        <button type="submit" class="btn btn-primary">Отправить жалобу</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/theme.js"></script>
+    <script>
+        // Убеждаемся, что Choices.js загружен перед модулями
+        if (!window.choicesLoaded) {
+            window.choicesLoaded = false;
+            const choicesScript = document.createElement('script');
+            choicesScript.src = 'https://cdn.jsdelivr.net/npm/choices.js@10.2.0/public/assets/scripts/choices.min.js';
+            choicesScript.onload = function() {
+                window.choicesLoaded = true;
+                if (typeof Choices !== 'undefined') {
+                    window.Choices = Choices;
+                }
+            };
+            document.head.appendChild(choicesScript);
+        }
+    </script>
+    <script src="js/listingDetail.js"></script>
+    <script src="js/currencyConverter.js"></script>
+    <script src="js/comments.js"></script>
+    <script type="module" src="js/createListing.js?v=3"></script>
+    <script src="js/messages.js"></script>
+</body>
+</html>
+

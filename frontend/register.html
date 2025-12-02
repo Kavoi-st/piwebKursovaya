@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация - Car Marketplace</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚗</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html" style="text-decoration: none; color: inherit;">
+                    <h1>🚗 Car Marketplace</h1>
+                </a>
+            </div>
+            <nav class="navbar">
+                <button id="themeToggle" class="theme-toggle" aria-label="Переключить тему" title="Переключить тему"></button>
+                <a href="login.html" id="loginLink" class="nav-link">Вход</a>
+                <a href="register.html" id="registerLink" class="nav-link active">Регистрация</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h2>Регистрация</h2>
+                    <p class="auth-subtitle">Создайте аккаунт для публикации и просмотра объявлений</p>
+                    
+                    <form id="registerForm" class="auth-form">
+                        <div id="errorMessage" class="error-message" style="display: none;"></div>
+                        <div id="successMessage" class="success-message" style="display: none;"></div>
+                        
+                        <div class="form-group">
+                            <label for="username">Имя пользователя *</label>
+                            <input 
+                                type="text" 
+                                id="username" 
+                                name="username" 
+                                required 
+                                minlength="3"
+                                maxlength="50"
+                                placeholder="username"
+                                class="form-input"
+                            >
+                            <small class="form-hint">От 3 до 50 символов, только буквы, цифры и _</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                required 
+                                placeholder="your.email@example.com"
+                                class="form-input"
+                            >
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password">Пароль *</label>
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password" 
+                                required 
+                                minlength="6"
+                                placeholder="Минимум 6 символов"
+                                class="form-input"
+                            >
+                            <small class="form-hint">Минимум 6 символов, должны быть буквы и цифры</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmPassword">Подтвердите пароль *</label>
+                            <input 
+                                type="password" 
+                                id="confirmPassword" 
+                                name="confirmPassword" 
+                                required 
+                                placeholder="Повторите пароль"
+                                class="form-input"
+                            >
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="displayName">Отображаемое имя</label>
+                            <input 
+                                type="text" 
+                                id="displayName" 
+                                name="displayName" 
+                                maxlength="100"
+                                placeholder="Как вас называть (необязательно)"
+                                class="form-input"
+                            >
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Телефон</label>
+                            <input 
+                                type="tel" 
+                                id="phone" 
+                                name="phone" 
+                                maxlength="30"
+                                placeholder="+380123456789"
+                                class="form-input"
+                            >
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block" id="registerBtn">
+                            Зарегистрироваться
+                        </button>
+                        
+                        <div class="auth-footer">
+                            <p>Уже есть аккаунт? <a href="login.html">Войти</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2025 Car Marketplace. Все права защищены.</p>
+            <div class="footer-links">
+                <a href="about.html">О нас</a>
+                <a href="contacts.html">Контакты</a>
+                <a href="rules.html">Правила</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/theme.js"></script>
+</body>
+</html>
+
